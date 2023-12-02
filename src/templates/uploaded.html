@@ -1,0 +1,49 @@
+{% extends 'base.html' %} {% block title %}File Uploaded{% endblock %} {% block
+content %}
+<div class="container">
+  <div class="row justify-content-center">
+    <div class="col-lg-10">
+      <div class="jumbotron mt-5">
+        <h1 class="display-4">Your file was uploaded</h1>
+        <p class="lead">Copy the link below to download your file.</p>
+        <hr class="my-4" />
+        <div class="input-group mb-3">
+          <input
+            type="text"
+            class="form-control"
+            id="fileLink"
+            value="{{ url_for('download', filename=filename, _external=True) }}"
+            readonly
+          />
+          <div class="input-group-append">
+            <button
+              class="btn btn-outline-secondary"
+              type="button"
+              id="copyButton"
+            >
+              Copy
+            </button>
+          </div>
+        </div>
+        <div class="alert alert-info" role="alert">
+          <span>Use this password to delete your file:</span>
+          <span class="mb-0"><strong>{{ file_id }}</strong></span>
+        </div>
+        <a
+          class="btn btn-primary btn-lg"
+          href="{{ url_for('index') }}"
+          role="button"
+          >Home</a
+        >
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+  document.getElementById("copyButton").addEventListener("click", function () {
+    var copyText = document.getElementById("fileLink");
+    copyText.select();
+    document.execCommand("copy");
+  });
+</script>
+{% endblock content %}

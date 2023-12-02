@@ -1,0 +1,27 @@
+{% extends 'base.html' %} {% block title %}I Need A Direct Link {% endblock %}
+{% block content %}
+<div class="container">
+  <div class="row justify-content-center">
+    <div class="col-lg-10">
+      <div class="jumbotron mt-5">
+        <h1 class="display-4">Delete our file</h1>
+        <p class="lead">Enter file id to delete your file.</p>
+        <hr class="my-4" />
+        <form action="{{ url_for('delete') }}" method="post">
+          <div class="form-group">
+            <label for="fileId">File ID</label>
+            <input
+              type="text"
+              class="form-control"
+              id="fileId"
+              name="fileId"
+              required
+            />
+          </div>
+          <button type="submit" class="btn btn-danger">Delete File</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock content %}

@@ -1,0 +1,23 @@
+{% extends 'base.html' %} {% block title %}I Need A Direct Link {% endblock %}
+{% block content %}
+<div class="container">
+  <div class="row justify-content-center">
+    <div class="col-lg-10">
+      <div class="jumbotron mt-5">
+        <h1 class="display-4">Upload a file</h1>
+        <p class="lead">
+          Upload a file up to 50 MB and get a direct link to it. No guarantees,
+          no warranties, no ads, your file can be deleted at any time.
+        </p>
+        <hr class="my-4" />
+        <form action="/upload" method="post" enctype="multipart/form-data">
+          <div class="form-group">
+            <input type="file" name="file" class="form-control-file" />
+          </div>
+          <button type="submit" class="btn btn-primary btn-lg">Upload</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock content %}
