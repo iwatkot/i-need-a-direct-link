@@ -1,0 +1,10 @@
+.venv/
+.git/
+.vscode/
+logs/
+uploads/
+__pycache__/
+.flake8
+.gitignore
+create_venv.sh
+ids.json
