@@ -13,7 +13,7 @@
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
   "python.formatting.provider": "none",
-  "autoDocstring.docstringFormat": "sphinx",
+  "autoDocstring.docstringFormat": "google",
   "debug.inlineValues": "off",
   "[python]": {
     "editor.defaultFormatter": "ms-python.black-formatter"

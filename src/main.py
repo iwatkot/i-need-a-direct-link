@@ -42,17 +42,17 @@ def upload_file():
         file.save(os.path.join(g.UPLOADS_DIR, filename_with_number))
         if (
             os.path.getsize(os.path.join(g.UPLOADS_DIR, filename_with_number))
-            > 50000000
+            > g.MAX_FILE_SIZE
         ):
-            flash("File is larger than 50 MB.")
-            logger.error("File is larger than 50 MB.")
+            flash(f"File is larger than {g.MAX_FILE_SIZE_MB}.")
+            logger.error(f"File is larger than {g.MAX_FILE_SIZE_MB}.")
             try:
                 os.remove(os.path.join(g.UPLOADS_DIR, filename_with_number))
             except OSError:
                 pass
             return redirect(url_for("index"))
         logger.info(f"File was saved successfully with name: {filename_with_number}")
-        file_id = g.save_id(filename_with_number)
+        file_id = g.save_file_id(filename_with_number)
         return redirect(
             url_for("uploaded", filename=filename_with_number, file_id=file_id)
         )
@@ -64,21 +64,25 @@ def uploaded(filename: str, file_id: str):
     return render_template("uploaded.html", filename=filename, file_id=file_id)
 
 
-@app.route("/delete", methods=["GET"])
-def delete_page():
-    return render_template("delete.html")
-
-
-@app.route("/delete", methods=["POST"])
+@app.route("/delete", methods=["GET", "POST"])
 def delete():
+    if request.method == "GET":
+        return render_template("delete.html")
     file_id = request.form.get("fileId")
-    g.delete_id(file_id)
-    flash("File was deleted.")
+    if g.delete_file_id(file_id):
+        flash("File was deleted.")
+    else:
+        flash("File was not deleted.")
     return redirect(url_for("index"))
 
 
 @app.route("/download/<filename>", methods=["GET"])
 def download(filename):
+    filepath = os.path.join(g.UPLOADS_DIR, filename)
+    if not os.path.isfile(filepath):
+        flash("File does not exist.")
+        logger.warning(f"File {filename} does not exist.")
+        return redirect(url_for("index"))
     return send_from_directory(g.UPLOADS_DIR, filename, as_attachment=True)
 
 
