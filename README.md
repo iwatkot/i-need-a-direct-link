@@ -22,7 +22,7 @@ Simple Flask app to upload files and download them with a direct link.
 3. VSCode launch configuration is included, so you can run the app with the debugger.
 4. Edit image name in `sh create_docker.sh`.
 5. Run `sh create_docker.sh` to create a Docker image.
-6. Deploy the image to your server with `docker run -d -p 80:80 <image_name>`.
+6. Deploy the image to your server with `docker run -d -p 80:80 --name <container-name> <image-name>`.
 
 ### Example
 
